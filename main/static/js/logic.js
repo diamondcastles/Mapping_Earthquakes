@@ -142,14 +142,34 @@ let sanFranAirport =
 //   Dark: dark
 // }
 
-// // Create the map object with center, zoom level and default layer.
-// let map = L.map('mapid', {
-//   center: [30, 30],
-//   zoom: 2,
-//   layers: [streets]
-// })
+// Create the map object with center, zoom level and default layer.
+let map = L.map('mapid', {
+  center: [30, 30],
+  zoom: 2,
+  layers: [streets]
+})
 
 // // Pass our map layers into our layers control and add the layers control to the map.
 // L.control.layers(baseMaps).addTo(map);
 
+// Accessing the Toronto airline routes GeoJSON URL.
+let torontoData = "https://raw.githubusercontent.com/diamondcastles/Mapping_Earthquakes/main/main/torontoRoutes.json";
+
+// Create a style for the lines.
+let myStyle = {
+  color: "blue",
+  weight: 2
+}
+
+// Grabbing our GeoJSON data.
+d3.json(torontoData).then(function(data) {
+  console.log(data);
+  // Creating a GeoJSON layer with the retrieved data.
+  L.geoJSON(data, {
+    style: myStyle,
+    onEachFeature: function(feature, layer) {
+      layer.bindPopup('<h3> Airline: ' + feature.properties.airline + "</h3> <hr><h3> Destination: " + feature.properties.dst + "</h3>");
+    }
+  }).addTo(map);
+});
 
