@@ -20,11 +20,12 @@ let baseMaps = {
 
 // Create the earthquake layer for our map.
 let earthquakes = new L.layerGroup();
+let tectonicPlates = new L.LayerGroup();
 
 // We define an object that contains the overlays.
 // This overlay will be visible all the time.
 let overlays = {
-    Earthquakes: earthquakes
+    Earthquakes: earthquakes,
 };
 
 // Create the map object with center, zoom level and default layer
@@ -127,4 +128,6 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
     legend.addTo(map);
 
     earthquakes.addTo(map)
+
+
 });
